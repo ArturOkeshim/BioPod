@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioPod - Умная ферма на вашей кухне</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+        }
+
+        /* Header */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #10b981;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #10b981;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #10b981;
+            display: block;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .device-3d {
+            width: 200px;
+            height: 400px;
+            background: white;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .plant-animation {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to top, #10b981, #a7f3d0);
+            border-radius: 0 0 15px 15px;
+            animation: grow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes grow {
+            0% { height: 150px; }
+            100% { height: 250px; }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #1f2937;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+
+        /* How it Works */
+        .how-it-works {
+            padding: 6rem 2rem;
+            background: #f0fdf4;
+        }
+
+        .steps {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 2rem 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">BioPod</div>
+            <div class="nav-links">
+                <a href="#features">Технологии</a>
+                <a href="#how-it-works">Как работает</a>
+                <a href="#pricing">Цены</a>
+                <a href="#contact">Контакты</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text" data-aos="fade-right">
+                <h1>Ферма будущего на вашей кухне</h1>
+                <p>Выращивайте свежие салаты, травы и ягоды 365 дней в году. Технологии, которые меняют представление о домашнем садоводстве.</p>
+                <button class="cta-button">Заказать BioPod</button>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">-95%</span>
+                        <span>воды</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">3x</span>
+                        <span>быстрее</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">0%</span>
+                        <span>пестицидов</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual" data-aos="fade-left">
+                <div class="device-3d">
+                    <div class="plant-animation"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <h2 class="section-title" data-aos="fade-up">Технологии будущего</h2>
+        <div class="features-grid">
+            <div class="feature-card" data-aos="fade-up">
+                <div class="feature-icon">🌱</div>
+                <h3>Аэропоника</h3>
+                <p>Корни питаются питательным туманом вместо почвы. Максимальная эффективность и скорость роста.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">💡</div>
+                <h3>Умный свет</h3>
+                <p>LED-спектр адаптируется под каждую культуру. Синий для роста, красный для цветения.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">🤖</div>
+                <h3>ИИ-агроном</h3>
+                <p>Компьютерное зрение отслеживает здоровье растений и автоматически корректирует условия.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works" id="how-it-works">
+        <h2 class="section-title" data-aos="fade-up">Просто как 1-2-3</h2>
+        <div class="steps">
+            <div class="step" data-aos="fade-up">
+                <div class="step-number">1</div>
+                <h3>Посадите капсулу</h3>
+                <p>Вставьте биокапсулу с семенами — как кофе в капсульной машине</p>
+            </div>
+            <div class="step" data-aos="fade-up" data-aos-delay="100">
+                <div class="step-number">2</div>
+                <h3>BioPod сделает всё сам</h3>
+                <p>ИИ управляет светом, питанием и климатом 24/7</p>
+            </div>
+            <div class="step" data-aos="fade-up" data-aos-delay="200">
+                <div class="step-number">3</div>
+                <h3>Соберите урожай</h3>
+                <p>Свежий салат через 2 недели, клубника через 45 дней</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="pricing">
+        <h2 data-aos="fade-up">Готовы к урожаю будущего?</h2>
+        <p data-aos="fade-up" data-aos-delay="100">Присоединяйтесь к революции домашнего земледелия</p>
+        <div class="price" data-aos="fade-up" data-aos-delay="200">$1,199</div>
+        <button class="cta-button" data-aos="fade-up" data-aos-delay="300">Забронировать сейчас</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <p>© 2024 BioPod. Все права защищены.</p>
+        <p>contact@biopod.com | +1 (555) 123-4567</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html>
